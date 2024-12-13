@@ -1,0 +1,23 @@
+
+curl http://127.0.0.1:8000/5/manifest -X POST      -H "Content-Type: text/plain"      --data-binary @Cargo-test.toml      
+
+
+
+curl http://localhost:8000/5/manifest -H "Content-Type: application/toml" --data '
+[package]
+name = "not-a-gift-order"
+authors = ["Not Santa"]
+keywords = ["Christmas 2024"]
+
+[[package.metadata.orders]]
+item = "Toy car"
+quantity = 2
+
+[[package.metadata.orders]]
+item = "Lego brick"
+quantity = 230
+'
+
+Toy car: 2
+Lego brick: 230
+
