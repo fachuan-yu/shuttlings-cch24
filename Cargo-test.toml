@@ -6,3 +6,164 @@ authors = ["Your Name <yourname@example.com>"]
 [dependencies]
 serde = "1.0"
 actix-web = "4.0"
+
+
+
+
+//day 5 challenge
+
+//test 1#
+
+
+[package]
+name = "not-a-gift-order"
+authors = ["Not Santa"]
+keywords = ["Christmas 2024"]
+
+[[package.metadata.orders]]
+item = "Toy car"
+quantity = 2
+
+[[package.metadata.orders]]
+item = "Lego brick"
+quantity = 230
+
+
+2024-12-14T16:35:24.149+08:00 [app]  INFO shuttlings_cch24: ------> Received original Cargo.toml manifest: 
+2024-12-14T16:35:24.149+08:00 [app] [package]
+2024-12-14T16:35:24.149+08:00 [app] name = "not-a-gift-order"
+2024-12-14T16:35:24.149+08:00 [app] authors = ["Not Santa"]
+2024-12-14T16:35:24.149+08:00 [app] keywords = ["Christmas 2024"]
+2024-12-14T16:35:24.149+08:00 [app] 
+2024-12-14T16:35:24.149+08:00 [app] [[package.metadata.orders]]
+2024-12-14T16:35:24.149+08:00 [app] item = "Toy car"
+2024-12-14T16:35:24.149+08:00 [app] quantity = 2
+2024-12-14T16:35:24.149+08:00 [app] 
+2024-12-14T16:35:24.149+08:00 [app] [[package.metadata.orders]]
+2024-12-14T16:35:24.149+08:00 [app] item = "Lego brick"
+2024-12-14T16:35:24.149+08:00 [app] quantity = 230
+2024-12-14T16:35:24.149+08:00 [app]     
+2024-12-14T16:35:24.149+08:00 [app]  INFO shuttlings_cch24: Match Cargo.toml manifest: CargoManifest { package: Package { name: "not-a-gift-order", authors: Some(["Not Santa"]), keywords: Some(["Christmas 2024"]), metadata: Metadata { orders: [Order { item: "Toy car", quantity: 2 }, Order { item: "Lego brick", quantity: 230 }] } } }    
+2024-12-14T16:35:24.149+08:00 [app]  INFO shuttlings_cch24: decoded info to be sent to  output: {"Toy car": 2, "Lego brick": 230}    
+
+
+//test 2#
+
+[package]
+name = "coal-in-a-bowl"
+authors = ["H4CK3R_13E7"]
+keywords = ["Christmas 2024"]
+
+[[package.metadata.orders]]
+item = "Coal"
+quantity = "Hahaha get rekt"
+
+
+
+2024-12-14T16:35:24.150+08:00 [app]  INFO shuttlings_cch24: ------> Received original Cargo.toml manifest: 
+2024-12-14T16:35:24.150+08:00 [app] [package]
+2024-12-14T16:35:24.150+08:00 [app] name = "coal-in-a-bowl"
+2024-12-14T16:35:24.150+08:00 [app] authors = ["H4CK3R_13E7"]
+2024-12-14T16:35:24.150+08:00 [app] keywords = ["Christmas 2024"]
+2024-12-14T16:35:24.150+08:00 [app] 
+2024-12-14T16:35:24.150+08:00 [app] [[package.metadata.orders]]
+2024-12-14T16:35:24.150+08:00 [app] item = "Coal"
+2024-12-14T16:35:24.150+08:00 [app] quantity = "Hahaha get rekt"
+2024-12-14T16:35:24.150+08:00 [app]     
+2024-12-14T16:35:24.151+08:00 [app] ERROR shuttlings_cch24: erro with toml input:  
+2024-12-14T16:35:24.151+08:00 [app]  TOML parse error at line 9, column 12
+2024-12-14T16:35:24.151+08:00 [app]   |
+2024-12-14T16:35:24.151+08:00 [app] 9 | quantity = "Hahaha get rekt"
+2024-12-14T16:35:24.151+08:00 [app]   |            ^^^^^^^^^^^^^^^^^
+2024-12-14T16:35:24.151+08:00 [app] invalid type: string "Hahaha get rekt", expected u32
+
+//test 3#
+
+
+[package]
+name = "coal-in-a-bowl"
+authors = ["H4CK3R_13E7"]
+keywords = ["Christmas 2024"]
+
+package.metadata.orders = []
+
+
+2024-12-14T16:35:24.151+08:00 [app]     
+2024-12-14T16:35:24.151+08:00 [app]  INFO shuttlings_cch24: ------> Received original Cargo.toml manifest: 
+2024-12-14T16:35:24.151+08:00 [app] [package]
+2024-12-14T16:35:24.151+08:00 [app] name = "coal-in-a-bowl"
+2024-12-14T16:35:24.151+08:00 [app] authors = ["H4CK3R_13E7"]
+2024-12-14T16:35:24.151+08:00 [app] keywords = ["Christmas 2024"]
+2024-12-14T16:35:24.151+08:00 [app] 
+2024-12-14T16:35:24.151+08:00 [app] package.metadata.orders = []
+2024-12-14T16:35:24.151+08:00 [app]     
+2024-12-14T16:35:24.152+08:00 [app] ERROR shuttlings_cch24: erro with toml input:  
+2024-12-14T16:35:24.152+08:00 [app]  TOML parse error at line 2, column 1
+2024-12-14T16:35:24.152+08:00 [app]   |
+2024-12-14T16:35:24.152+08:00 [app] 2 | [package]
+2024-12-14T16:35:24.152+08:00 [app]   | ^^^^^^^^^
+2024-12-14T16:35:24.152+08:00 [app] missing field `metadata`
+
+//test 4#
+2024-12-14T16:35:24.152+08:00 [app]     
+2024-12-14T16:35:24.152+08:00 [app]  INFO shuttlings_cch24: ------> Received original Cargo.toml manifest: 
+2024-12-14T16:35:24.152+08:00 [app] [package]
+2024-12-14T16:35:24.152+08:00 [app] name = "not-a-gift-order"
+2024-12-14T16:35:24.152+08:00 [app] authors = ["Not Santa"]
+2024-12-14T16:35:24.152+08:00 [app] keywords = ["Christmas 2024"]
+2024-12-14T16:35:24.152+08:00 [app] 
+2024-12-14T16:35:24.152+08:00 [app] [[package.metadata.orders]]
+2024-12-14T16:35:24.152+08:00 [app] item = "Toy car"
+2024-12-14T16:35:24.152+08:00 [app] quantity = 2
+2024-12-14T16:35:24.152+08:00 [app] 
+2024-12-14T16:35:24.152+08:00 [app] [[package.metadata.orders]]
+2024-12-14T16:35:24.152+08:00 [app] item = "Lego brick"
+2024-12-14T16:35:24.152+08:00 [app] quantity = 1.5
+2024-12-14T16:35:24.152+08:00 [app] 
+2024-12-14T16:35:24.152+08:00 [app] [[package.metadata.orders]]
+2024-12-14T16:35:24.152+08:00 [app] item = "Doll"
+2024-12-14T16:35:24.152+08:00 [app] quantity = 2
+2024-12-14T16:35:24.152+08:00 [app] 
+2024-12-14T16:35:24.152+08:00 [app] [[package.metadata.orders]]
+2024-12-14T16:35:24.152+08:00 [app] quantity = 5
+2024-12-14T16:35:24.152+08:00 [app] item = "Cookie:::\n"
+2024-12-14T16:35:24.152+08:00 [app] 
+2024-12-14T16:35:24.152+08:00 [app] [[package.metadata.orders]]
+2024-12-14T16:35:24.152+08:00 [app] item = "Thing"
+2024-12-14T16:35:24.152+08:00 [app] count = 3
+2024-12-14T16:35:24.152+08:00 [app]     
+2024-12-14T16:35:24.153+08:00 [app] ERROR shuttlings_cch24: erro with toml input:  
+2024-12-14T16:35:24.153+08:00 [app]  TOML parse error at line 13, column 12
+2024-12-14T16:35:24.153+08:00 [app]    |
+2024-12-14T16:35:24.153+08:00 [app] 13 | quantity = 1.5
+2024-12-14T16:35:24.153+08:00 [app]    |            ^^^
+2024-12-14T16:35:24.153+08:00 [app] invalid type: floating point `1.5`, expected u32
+2024-12-14T16:35:24.153+08:00 [app]     
+
+
+
+
+[package]
+name = "not-a-gift-order"
+authors = ["Not Santa"]
+keywords = ["Christmas 2024"]
+
+[[package.metadata.orders]]
+item = "Toy car"
+quantity = 2
+
+[[package.metadata.orders]]
+item = "Lego brick"
+quantity = 1.5
+
+[[package.metadata.orders]]
+item = "Doll"
+quantity = 2
+
+[[package.metadata.orders]]
+quantity = 5
+item = "Cookie:::\n"
+
+[[package.metadata.orders]]
+item = "Thing"
+count = 3
