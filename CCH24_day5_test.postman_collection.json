@@ -1,0 +1,675 @@
+{
+	"info": {
+		"_postman_id": "8ce9d882-1806-4ddc-9d90-c3ffe1287b95",
+		"name": "CCH24_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40380743"
+	},
+	"item": [
+		{
+			"name": "day5 task 1-1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"not-a-gift-order\"\nauthors = [\"Not Santa\"]\nkeywords = [\"Christmas 2024\"]\n\n[[package.metadata.orders]]\nitem = \"Toy car\"\nquantity = 2\n\n[[package.metadata.orders]]\nitem = \"Lego brick\"\nquantity = 230",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 1-2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"coal-in-a-bowl\"\nauthors = [\"H4CK3R_13E7\"]\nkeywords = [\"Christmas 2024\"]\n\n[[package.metadata.orders]]\nitem = \"Coal\"\nquantity = \"Hahaha get rekt\"",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 1-3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"coal-in-a-bowl\"\nauthors = [\"H4CK3R_13E7\"]\nkeywords = [\"Christmas 2024\"]\n\npackage.metadata.orders = []",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 1-4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"not-a-gift-order\"\nauthors = [\"Not Santa\"]\nkeywords = [\"Christmas 2024\"]\n\n[[package.metadata.orders]]\nitem = \"Toy car\"\nquantity = 2\n\n[[package.metadata.orders]]\nitem = \"Lego brick\"\nquantity = 1.5\n\n[[package.metadata.orders]]\nitem = \"Doll\"\nquantity = 2\n\n[[package.metadata.orders]]\nquantity = 5\nitem = \"Cookie:::\\n\"\n\n[[package.metadata.orders]]\nitem = \"Thing\"\ncount = 3",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 2-1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = false\nauthors = [\"Not Santa\"]\nkeywords = [\"Christmas 2024\"]",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 2-2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"not-a-gift-order\"\nauthors = [\"Not Santa\"]\nkeywords = [\"Christmas 2024\"]\n\n[profile.release]\nincremental = \"stonks\"",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 2-3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"big-chungus\"\nversion = \"2.0.24\"\nedition = \"2024\"\nresolver = \"2\"\nreadme.workspace = true\nkeywords = [\"Christmas 2024\"]\n\n[dependencies]\nshuttle-runtime = \"1.0.0+when\"\n\n[target.shuttlings.dependencies]\ncch24-validator = \"5+more\"\n\n[profile.release]\nincremental = false\n\n[package.metadata.stuff]\nthing = [\"yes\", \"no\"]",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 2-4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"chig-bungus\"\nedition = \"2023\"\n\n[workspace.dependencies]\nshuttle-bring-your-own-cloud = \"0.0.0\"",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 3-1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"grass\"\nauthors = [\"A vegan cow\"]\nkeywords = [\"Moooooo\"]",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 3-2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"chig-bungus\"\n\n[workspace]\nresolver = \"2\"\n\n[workspace.dependencies]\nshuttle-bring-your-own-cloud = \"0.0.0\"",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 3-3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"slurp\"\nauthors = [\"A crazy cow\"]\nkeywords = [\"MooOooooooOOOOoo00oo=oOooooo\", \"Mew\", \"Moh\", \"Christmas 2024\"]\nmetadata.orders = [{ item = \"Milk 🥛\", quantity = 1 }]",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 3-4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/toml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[package]\nname = \"snow\"\nauthors = [\"The Cow of Christmas\"]\nkeywords = [\"Moooooo Merry Christmas 2024\"]",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 4-1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<h1>Hello, bird!</h1>",
+					"options": {
+						"raw": {
+							"language": "html"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 4.2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "package:\n  name: big-chungus-sleigh\n  version: \"2.0.24\"\n  metadata:\n    orders:\n      - item: \"Toy train\"\n        quantity: 5\n  rust-version: \"1.69\"\n  keywords:\n    - \"Christmas 2024\"",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 4.3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "package:\n  name: big-chungus-sleigh\n  metadata:\n    orders:\n      - item: \"Toy train\"\n        quantity: 5\n      - item: \"Coal\"\n      - item: \"Horse\"\n        quantity: 2\n  keywords:\n    - \"Christmas 2024\"",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 4.4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "package:\n  name: big-chungus-sleigh\n  metadata:\n    orders:\n      - item: \"Toy train\"\n        quantity: 5\n  rust-version: true\n  keywords:\n    - \"Christmas 2024\"",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 4.5",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"package\": {\n    \"name\": \"big-chungus-sleigh\",\n    \"version\": \"2.0.24\",\n    \"metadata\": {\n      \"orders\": [\n        {\n          \"item\": \"Toy train\",\n          \"quantity\": 5\n        },\n        {\n          \"item\": \"Toy car\",\n          \"quantity\": 3\n        }\n      ]\n    },\n    \"rust-version\": \"1.69\",\n    \"keywords\": [\n      \"Christmas 2024\"\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 4.6",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"package\": {\n    \"name\": \"big-chungus-sleigh\",\n    \"metadata\": {\n      \"orders\": [\n        {\n          \"item\": \"Toy train\",\n          \"quantity\": 5\n        },\n        {\n          \"item\": \"Coal\"\n        },\n        {\n          \"item\": \"Horse\",\n          \"quantity\": 2\n        }\n      ]\n    },\n    \"keywords\": [\n      \"Christmas 2024\"\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "day5 task 4.7",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"package\": {\n    \"name\": \"big-chungus-sleigh\",\n    \"metadata\": {\n      \"orders\": [\n        {\n          \"item\": \"Toy train\",\n          \"quantity\": 5\n        }\n      ]\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/5/manifest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"5",
+						"manifest"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -29,6 +29,69 @@ item = "Lego brick"
 quantity = 230
 
 
+Table:
+Key: package, 
+Value: Table({"authors": Array([String("Not Santa")]), "keywords": Array([String("Christmas 2024")]), "metadata": Table({"orders": Array([Table({"item": String("Toy car"), "quantity": Integer(2)}), Table({"item": String("Lego brick"), "quantity": Integer(230)})])}), "name": String("not-a-gift-order")})
+
+
+value is:  Table(
+    {
+        "package": Table(                                  //table
+            {
+                "authors": Array(                            //tabke key
+                    [
+                        String(
+                            "Not Santa",                     //tabke key value
+                        ),
+                    ],
+                ),
+                "keywords": Array(
+                    [
+                        String(
+                            "Christmas 2024",
+                        ),
+                    ],
+                ),
+                "metadata": Table(
+                    {
+                        "orders": Array(
+                            [
+                                Table(
+                                    {
+                                        "item": String(
+                                            "Toy car",
+                                        ),
+                                        "quantity": Integer(
+                                            2,
+                                        ),
+                                    },
+                                ),
+                                Table(
+                                    {
+                                        "item": String(
+                                            "Lego brick",
+                                        ),
+                                        "quantity": String(
+                                            "here",
+                                        ),
+                                    },
+                                ),
+                            ],
+                        ),
+                    },
+                ),
+                "name": String(
+                    "not-a-gift-order",
+                ),
+            },
+        ),
+    },
+)
+
+
+
+
+
 2024-12-14T16:35:24.149+08:00 [app]  INFO shuttlings_cch24: ------> Received original Cargo.toml manifest: 
 2024-12-14T16:35:24.149+08:00 [app] [package]
 2024-12-14T16:35:24.149+08:00 [app] name = "not-a-gift-order"
@@ -86,6 +149,8 @@ authors = ["H4CK3R_13E7"]
 keywords = ["Christmas 2024"]
 
 package.metadata.orders = []
+
+
 
 
 2024-12-14T16:35:24.151+08:00 [app]     
@@ -167,3 +232,505 @@ item = "Cookie:::\n"
 [[package.metadata.orders]]
 item = "Thing"
 count = 3
+
+
+
+TASK 2# ------------------------------------------------------------------------
+
+2.1
+2024-12-17T14:21:24.252+08:00 [app] 
+2024-12-17T14:21:24.252+08:00 [app] [package]
+2024-12-17T14:21:24.252+08:00 [app] name = false
+2024-12-17T14:21:24.252+08:00 [app] authors = ["Not Santa"]
+2024-12-17T14:21:24.252+08:00 [app] keywords = ["Christmas 2024"]
+
+
+
+[package]
+name = "not-a-gift-order"
+authors = ["Not Santa"]
+keywords = ["Christmas 2024"]
+
+
+2.2
+
+2024-12-17T16:09:03.266+08:00 [app] [package]
+2024-12-17T16:09:03.266+08:00 [app] name = "not-a-gift-order"
+2024-12-17T16:09:03.266+08:00 [app] authors = ["Not Santa"]
+2024-12-17T16:09:03.266+08:00 [app] keywords = ["Christmas 2024"]
+2024-12-17T16:09:03.266+08:00 [app] 
+2024-12-17T16:09:03.266+08:00 [app] [profile.release]
+2024-12-17T16:09:03.266+08:00 [app] incremental = "stonks"
+
+
+[package]
+name = "not-a-gift-order"
+authors = ["Not Santa"]
+keywords = ["Christmas 2024"]
+
+[profile.release]
+incremental = "stonks"
+
+Ok(
+    CargoManifest {
+        package: Package {
+            name: Some(
+                "not-a-gift-order",
+            ),
+            authors: Some(
+                [
+                    "Not Santa",
+                ],
+            ),
+            keywords: Some(
+                [
+                    "Christmas 2024",
+                ],
+            ),
+            metadata: None,
+        },
+    },
+)
+
+
+
+
+// 2.3
+
+2024-12-19T22:47:36.949+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original Cargo.toml manifest: 
+2024-12-19T22:47:36.949+08:00 [app] 
+2024-12-19T22:47:36.949+08:00 [app] [package]
+2024-12-19T22:47:36.949+08:00 [app] name = "big-chungus"
+2024-12-19T22:47:36.949+08:00 [app] version = "2.0.24"
+2024-12-19T22:47:36.949+08:00 [app] edition = "2024"
+2024-12-19T22:47:36.949+08:00 [app] resolver = "2"
+2024-12-19T22:47:36.949+08:00 [app] readme.workspace = true
+2024-12-19T22:47:36.949+08:00 [app] keywords = ["Christmas 2024"]
+2024-12-19T22:47:36.949+08:00 [app] 
+2024-12-19T22:47:36.949+08:00 [app] [dependencies]
+2024-12-19T22:47:36.949+08:00 [app] shuttle-runtime = "1.0.0+when"
+2024-12-19T22:47:36.949+08:00 [app] 
+2024-12-19T22:47:36.949+08:00 [app] [target.shuttlings.dependencies]
+2024-12-19T22:47:36.949+08:00 [app] cch24-validator = "5+more"
+2024-12-19T22:47:36.949+08:00 [app] 
+2024-12-19T22:47:36.949+08:00 [app] [profile.release]
+2024-12-19T22:47:36.949+08:00 [app] incremental = false
+2024-12-19T22:47:36.949+08:00 [app] 
+2024-12-19T22:47:36.949+08:00 [app] [package.metadata.stuff]
+2024-12-19T22:47:36.949+08:00 [app] thing = ["yes", "no"]
+2024-12-19T22:47:36.949+08:00 [app]     
+2024-12-19T22:47:36.949+08:00 [app] CargoManifest loaded successfully: 
+2024-12-19T22:47:36.949+08:00 [app] CargoManifest { package: Package { name: Some("big-chungus"), authors: None, keywords: Some(["Christmas 2024"]), metadata: Metadata { orders: [] } } }
+
+
+
+
+[package]
+name = "big-chungus"
+version = "2.0.24"
+edition = "2024"
+resolver = "2"
+readme.workspace = true
+keywords = ["Christmas 2024"]
+
+[dependencies]
+shuttle-runtime = "1.0.0+when"
+
+[target.shuttlings.dependencies]
+cch24-validator = "5+more"
+
+[profile.release]
+incremental = false
+
+[package.metadata.stuff]
+thing = ["yes", "no"]
+
+
+
+/// 2.4
+
+2024-12-20T21:47:55.329+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original Cargo.toml manifest: 
+2024-12-20T21:47:55.329+08:00 [app] 
+2024-12-20T21:47:55.329+08:00 [app] [package]
+2024-12-20T21:47:55.329+08:00 [app] name = "chig-bungus"
+2024-12-20T21:47:55.329+08:00 [app] edition = "2023"
+2024-12-20T21:47:55.329+08:00 [app] 
+2024-12-20T21:47:55.329+08:00 [app] [workspace.dependencies]
+2024-12-20T21:47:55.329+08:00 [app] shuttle-bring-your-own-cloud = "0.0.0"
+2024-12-20T21:47:55.329+08:00 [app]     
+2024-12-20T21:47:55.330+08:00 [app] CargoManifest loaded successfully: 
+2024-12-20T21:47:55.330+08:00 [app] CargoManifest { package: Package { name: Some("chig-bungus"), authors: None, keywords: None, metadata: None } }
+
+
+
+[package]
+name = "chig-bungus"
+edition = "2023"
+
+[workspace.dependencies]
+shuttle-bring-your-own-cloud = "0.0.0"
+
+
+
+// 3.1
+
+
+2024-12-20T11:22:07.593+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original Cargo.toml manifest: 
+2024-12-20T11:22:07.593+08:00 [app] 
+2024-12-20T11:22:07.593+08:00 [app] [package]
+2024-12-20T11:22:07.593+08:00 [app] name = "grass"
+2024-12-20T11:22:07.593+08:00 [app] authors = ["A vegan cow"]
+2024-12-20T11:22:07.593+08:00 [app] keywords = ["Moooooo"]
+2024-12-20T11:22:07.593+08:00 [app]     
+2024-12-20T11:22:07.593+08:00 [app] CargoManifest loaded successfully: 
+2024-12-20T11:22:07.593+08:00 [app] CargoManifest { package: Package { name: Some("grass"), authors: Some(["A vegan cow"]), keywords: Some(["Moooooo"]), metadata: None } }
+
+
+
+
+
+ 
+[package]
+name = "grass"
+authors = ["A vegan cow"]
+keywords = ["Moooooo"]
+     
+
+
+/// 3.2
+
+
+2024-12-24T09:44:38.970+08:00 [app] [package]
+2024-12-24T09:44:38.970+08:00 [app] name = "chig-bungus"
+2024-12-24T09:44:38.970+08:00 [app] 
+2024-12-24T09:44:38.970+08:00 [app] [workspace]
+2024-12-24T09:44:38.970+08:00 [app] resolver = "2"
+2024-12-24T09:44:38.970+08:00 [app] 
+2024-12-24T09:44:38.970+08:00 [app] [workspace.dependencies]
+2024-12-24T09:44:38.970+08:00 [app] shuttle-bring-your-own-cloud = "0.0.0"
+
+
+[package]
+name = "chig-bungus"
+
+[workspace]
+resolver = "2"
+
+[workspace.dependencies]
+shuttle-bring-your-own-cloud = "0.0.0"
+
+
+
+/// 3.3
+
+2024-12-24T09:51:10.078+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original Cargo.toml manifest: 
+2024-12-24T09:51:10.078+08:00 [app] 
+2024-12-24T09:51:10.078+08:00 [app] [package]
+2024-12-24T09:51:10.078+08:00 [app] name = "slurp"
+2024-12-24T09:51:10.078+08:00 [app] authors = ["A crazy cow"]
+2024-12-24T09:51:10.078+08:00 [app] keywords = ["MooOooooooOOOOoo00oo=oOooooo", "Mew", "Moh", "Christmas 2024"]
+2024-12-24T09:51:10.078+08:00 [app] metadata.orders = [{ item = "Milk 🥛", quantity = 1 }]
+
+
+2024-12-24T09:51:10.078+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original Cargo.toml manifest: 
+2024-12-24T09:51:10.078+08:00 [app] 
+[package]
+name = "slurp"
+authors = ["A crazy cow"]
+keywords = ["MooOooooooOOOOoo00oo=oOooooo", "Mew", "Moh", "Christmas 2024"]
+metadata.orders = [{ item = "Milk 🥛", quantity = 1 }]
+
+
+
+/// 3.4
+2024-12-24T09:51:10.078+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original Cargo.toml manifest: 
+2024-12-24T09:51:10.078+08:00 [app] 
+2024-12-24T09:51:10.078+08:00 [app] [package]
+2024-12-24T09:51:10.078+08:00 [app] name = "snow"
+2024-12-24T09:51:10.078+08:00 [app] authors = ["The Cow of Christmas"]
+2024-12-24T09:51:10.078+08:00 [app] keywords = ["Moooooo Merry Christmas 2024"]
+2024-12-24T09:51:10.078+08:00 [app]    
+
+
+2024-12-24T09:51:10.078+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original Cargo.toml manifest: 
+2024-12-24T09:51:10.078+08:00 [app] 
+[package]
+name = "snow"
+authors = ["The Cow of Christmas"]
+keywords = ["Moooooo Merry Christmas 2024"]
+
+
+
+
+
+
+
+
+
+
+
+/// 4.1
+
+curl -v http://localhost:8000/5/manifest -H "Content-Type: text/html" --data '<h1>Hello, bird!</h1>'
+
+...
+< HTTP/1.1 415 Unsupported Media Type
+...
+
+2024-12-24T11:18:03.296+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original manifest: 
+2024-12-24T11:18:03.296+08:00 [app] <h1>Hello, bird!</h1>    
+2024-12-24T11:18:03.296+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Req is : 
+2024-12-24T11:18:03.296+08:00 [app] 
+2024-12-24T11:18:03.296+08:00 [app] HttpRequest HTTP/1.1 POST:/5/manifest
+2024-12-24T11:18:03.296+08:00 [app]   headers:
+2024-12-24T11:18:03.296+08:00 [app]     "content-type": "text/html"
+2024-12-24T11:18:03.296+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T11:18:03.296+08:00 [app]     "content-length": "21"
+2024-12-24T11:18:03.296+08:00 [app]     "accept": "*/*"
+
+
+
+
+
+/// 4.2
+curl http://localhost:8000/5/manifest -H "Content-Type: application/yaml" --data '
+package:
+  name: big-chungus-sleigh
+  version: "2.0.24"
+  metadata:
+    orders:
+      - item: "Toy train"
+        quantity: 5
+  rust-version: "1.69"
+  keywords:
+    - "Christmas 2024"
+'
+
+Toy train: 5
+
+
+2024-12-24T11:18:03.296+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original manifest: 
+2024-12-24T11:18:03.296+08:00 [app] 
+2024-12-24T11:18:03.296+08:00 [app] package:
+2024-12-24T11:18:03.296+08:00 [app]   name: big-chungus-sleigh
+2024-12-24T11:18:03.296+08:00 [app]   version: "2.0.24"
+2024-12-24T11:18:03.296+08:00 [app]   metadata:
+2024-12-24T11:18:03.296+08:00 [app]     orders:
+2024-12-24T11:18:03.296+08:00 [app]       - item: "Toy train"
+2024-12-24T11:18:03.296+08:00 [app]         quantity: 5
+2024-12-24T11:18:03.296+08:00 [app]       - item: "Toy car"
+2024-12-24T11:18:03.296+08:00 [app]         quantity: 3
+2024-12-24T11:18:03.296+08:00 [app]   rust-version: "1.69"
+2024-12-24T11:18:03.296+08:00 [app]   keywords:
+2024-12-24T11:18:03.296+08:00 [app]     - "Christmas 2024"
+2024-12-24T11:18:03.296+08:00 [app]     
+2024-12-24T11:18:03.296+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Req is : 
+2024-12-24T11:18:03.296+08:00 [app] 
+2024-12-24T11:18:03.296+08:00 [app] HttpRequest HTTP/1.1 POST:/5/manifest
+2024-12-24T11:18:03.296+08:00 [app]   headers:
+2024-12-24T11:18:03.296+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T11:18:03.296+08:00 [app]     "accept": "*/*"
+2024-12-24T11:18:03.296+08:00 [app]     "content-type": "application/yaml"
+2024-12-24T11:18:03.296+08:00 [app]     "content-length": "229"
+
+
+
+
+
+/// 4.3
+
+2024-12-24T12:02:05.384+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original manifest: 
+2024-12-24T12:02:05.384+08:00 [app] 
+2024-12-24T12:02:05.384+08:00 [app] package:
+2024-12-24T12:02:05.384+08:00 [app]   name: big-chungus-sleigh
+2024-12-24T12:02:05.384+08:00 [app]   metadata:
+2024-12-24T12:02:05.384+08:00 [app]     orders:
+2024-12-24T12:02:05.384+08:00 [app]       - item: "Toy train"
+2024-12-24T12:02:05.384+08:00 [app]         quantity: 5
+2024-12-24T12:02:05.384+08:00 [app]       - item: "Coal"
+2024-12-24T12:02:05.384+08:00 [app]       - item: "Horse"
+2024-12-24T12:02:05.384+08:00 [app]         quantity: 2
+2024-12-24T12:02:05.384+08:00 [app]   keywords:
+2024-12-24T12:02:05.384+08:00 [app]     - "Christmas 2024"
+2024-12-24T12:02:05.384+08:00 [app]     
+2024-12-24T12:02:05.384+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Req is : 
+2024-12-24T12:02:05.384+08:00 [app] 
+2024-12-24T12:02:05.384+08:00 [app] HttpRequest HTTP/1.1 POST:/5/manifest
+2024-12-24T12:02:05.384+08:00 [app]   headers:
+2024-12-24T12:02:05.384+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T12:02:05.384+08:00 [app]     "content-length": "205"
+2024-12-24T12:02:05.384+08:00 [app]     "content-type": "application/yaml"
+2024-12-24T12:02:05.384+08:00 [app]     "accept": "*/*"
+
+
+package:
+  name: big-chungus-sleigh
+  metadata:
+    orders:
+      - item: "Toy train"
+        quantity: 5
+      - item: "Coal"
+      - item: "Horse"
+        quantity: 2
+  keywords:
+    - "Christmas 2024"
+
+
+
+
+/// 4.4
+
+2024-12-24T12:02:05.426+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original manifest: 
+2024-12-24T12:02:05.426+08:00 [app] 
+2024-12-24T12:02:05.426+08:00 [app] package:
+2024-12-24T12:02:05.426+08:00 [app]   name: big-chungus-sleigh
+2024-12-24T12:02:05.426+08:00 [app]   metadata:
+2024-12-24T12:02:05.426+08:00 [app]     orders:
+2024-12-24T12:02:05.426+08:00 [app]       - item: "Toy train"
+2024-12-24T12:02:05.426+08:00 [app]         quantity: 5
+2024-12-24T12:02:05.426+08:00 [app]   rust-version: true
+2024-12-24T12:02:05.426+08:00 [app]   keywords:
+2024-12-24T12:02:05.426+08:00 [app]     - "Christmas 2024"
+2024-12-24T12:02:05.426+08:00 [app]     
+2024-12-24T12:02:05.426+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Req is : 
+2024-12-24T12:02:05.426+08:00 [app] 
+2024-12-24T12:02:05.426+08:00 [app] HttpRequest HTTP/1.1 POST:/5/manifest
+2024-12-24T12:02:05.426+08:00 [app]   headers:
+2024-12-24T12:02:05.426+08:00 [app]     "content-type": "application/yaml"
+2024-12-24T12:02:05.426+08:00 [app]     "content-length": "163"
+2024-12-24T12:02:05.426+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T12:02:05.426+08:00 [app]     "accept": "*/*"
+2024-12-24T12:02:05.426+08:00 [app]     
+
+
+
+package:
+  name: big-chungus-sleigh
+  metadata:
+    orders:
+      - item: "Toy train"
+        quantity: 5
+  rust-version: true
+  keywords:
+    - "Christmas 2024"
+
+
+
+
+/// 4.5
+
+
+2024-12-24T13:08:34.549+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original manifest: 
+2024-12-24T13:08:34.549+08:00 [app] 
+
+{
+  "package": {
+    "name": "big-chungus-sleigh",
+    "version": "2.0.24",
+    "metadata": {
+      "orders": [
+        {
+          "item": "Toy train",
+          "quantity": 5
+        },
+        {
+          "item": "Toy car",
+          "quantity": 3
+        }
+      ]
+    },
+    "rust-version": "1.69",
+    "keywords": [
+      "Christmas 2024"
+    ]
+  }
+}
+
+
+
+2024-12-24T13:08:34.549+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Req is : 
+2024-12-24T13:08:34.549+08:00 [app] 
+2024-12-24T13:08:34.549+08:00 [app] HttpRequest HTTP/1.1 POST:/5/manifest
+2024-12-24T13:08:34.549+08:00 [app]   headers:
+2024-12-24T13:08:34.549+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T13:08:34.549+08:00 [app]     "content-type": "application/json"
+2024-12-24T13:08:34.549+08:00 [app]     "content-length": "358"
+2024-12-24T13:08:34.549+08:00 [app]     "accept": "*/*"
+2024-12-24T13:08:34.549+08:00 [app]    
+
+
+
+/// 4.6  yaml ??? json!!!
+
+
+2024-12-24T13:08:34.549+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original manifest: 
+2024-12-24T13:08:34.549+08:00 [app] 
+{
+  "package": {
+    "name": "big-chungus-sleigh",
+    "metadata": {
+      "orders": [
+        {
+          "item": "Toy train",
+          "quantity": 5
+        },
+        {
+          "item": "Coal"
+        },
+        {
+          "item": "Horse",
+          "quantity": 2
+        }
+      ]
+    },
+    "keywords": [
+      "Christmas 2024"
+    ]
+  }
+}
+
+2024-12-24T13:08:34.550+08:00 [app]     
+2024-12-24T13:08:34.550+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Req is : 
+2024-12-24T13:08:34.550+08:00 [app] 
+2024-12-24T13:08:34.550+08:00 [app] HttpRequest HTTP/1.1 POST:/5/manifest
+2024-12-24T13:08:34.550+08:00 [app]   headers:
+2024-12-24T13:08:34.550+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T13:08:34.550+08:00 [app]     "accept": "*/*"
+2024-12-24T13:08:34.550+08:00 [app]     "content-length": "349"
+2024-12-24T13:08:34.550+08:00 [app]     "content-type": "application/yaml"
+2024-12-24T13:08:34.550+08:00 [app]  
+
+
+/// 4.7
+
+2024-12-24T13:08:34.550+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Received original manifest: 
+2024-12-24T13:08:34.550+08:00 [app] 
+{
+  "package": {
+    "name": "big-chungus-sleigh",
+    "metadata": {
+      "orders": [
+        {
+          "item": "Toy train",
+          "quantity": 5
+        }
+      ]
+    }
+  }
+}
+2024-12-24T13:08:34.550+08:00 [app]     
+2024-12-24T13:08:34.550+08:00 [app]  INFO shuttlings_cch24::day_five: ------> Req is : 
+2024-12-24T13:08:34.550+08:00 [app] 
+2024-12-24T13:08:34.550+08:00 [app] HttpRequest HTTP/1.1 POST:/5/manifest
+2024-12-24T13:08:34.550+08:00 [app]   headers:
+2024-12-24T13:08:34.550+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T13:08:34.550+08:00 [app]     "content-type": "application/json"
+2024-12-24T13:08:34.550+08:00 [app]     "content-length": "183"
+2024-12-24T13:08:34.550+08:00 [app]     "accept": "*/*"
+2024-12-24T13:08:34.550+08:00 [app]     
+
+
+/// 4.8
+
+
+

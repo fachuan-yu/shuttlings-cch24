@@ -34,7 +34,7 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
             .service(crate::day_two::key)
             .service(crate::day_two::v6_dest)
             .service(crate::day_two::v6_key)
-            .service(handle_manifest);
+            .service(crate::day_five::handle_manifest);
     };
 
     Ok(config.into())

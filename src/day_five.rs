@@ -1,41 +1,56 @@
-use actix_web::{ post,  HttpResponse, Responder};
-use serde::{Deserialize, Serialize};
-use serde::de::Deserializer;
+use std::{str::FromStr};
+
+use actix_web::{
+    post, HttpResponse, Responder, HttpRequest,
+};
+
 use indexmap::IndexMap;
 
-use log::{debug, error, info, log_enabled, Level};
+use cargo_manifest::Manifest;
+use toml::Value;
 
+use serde_json;
+use serde_yaml;
 
+use serde::de::Deserializer;
+use serde::{Deserialize, Serialize};
+
+use log::{ error, info, warn};
 
 //******************* 5 **************
 
 // struct CargoManifest defination
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct CargoManifest {
     package: Package,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct Package {
-    name: String,
-    //version: String,
+    #[serde(deserialize_with = "deserialize_string_or_none")]
+    //  允许在 类型不匹配时返回 None，避免反序列化失败
+    name: Option<String>,
     authors: Option<Vec<String>>,
     keywords: Option<Vec<String>>,
-    metadata: Metadata, //
+    #[serde(default)] // 提供默认值
+    metadata: Option<Metadata>, //
 }
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Default, Clone)]
 struct Metadata {
-    orders: Vec<Order>,
+    #[serde(default)] // 提供默认值
+    orders: Option<Vec<Order>>,
 }
-
 
 // handle the error case when  deserializing toml
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct Order {
     #[serde(default = "default_to_none_string_if_missing")]
+    // 当反序列化时，字段缺失（不存在于输入数据中）时，将调用指定的函数提供默认值。
     #[serde(deserialize_with = "deserialize_string_or_none")]
+    //  允许在 类型不匹配时返回 None，避免反序列化失败
     item: Option<String>,
+
     #[serde(default = "default_to_none_u32_if_missing")]
     #[serde(deserialize_with = "deserialize_u32_or_none")]
     quantity: Option<u32>,
@@ -48,139 +63,271 @@ fn default_to_none_u32_if_missing() -> Option<u32> {
     None
 }
 
+// 自定义反序列化函数，处理类型不匹配的情况
 fn deserialize_u32_or_none<'de, D>(deserializer: D) -> Result<Option<u32>, D::Error>
 where
     D: Deserializer<'de>,
 {
+    // 尝试将字段反序列化为 Option<u32>
     match Option::<u32>::deserialize(deserializer) {
-        Ok(value) => Ok(value),
-        Err(_) => Ok(None), // 类型不匹配时，返回 None
+        Ok(Some(value)) => Ok(Some(value)), // 类型匹配，返回值
+        Ok(None) => Ok(None),               // 类型匹配，但是没有值，返回 None
+        Err(_) => Ok(None),                 // 类型不匹配，丢弃该字段并返回 None
     }
 }
 
+// 自定义反序列化函数，处理类型不匹配的情况
 fn deserialize_string_or_none<'de, D>(deserializer: D) -> Result<Option<String>, D::Error>
 where
     D: Deserializer<'de>,
 {
+    // 尝试将字段反序列化为 Option<u32>
     match Option::<String>::deserialize(deserializer) {
-        Ok(value) => Ok(value),
-        Err(_) => Ok(None), // 类型不匹配时，返回 None
+        Ok(Some(value)) => Ok(Some(value)), // 类型匹配，返回值
+        Ok(None) => Ok(None),               // 类型匹配，但是没有值，返回 None
+        Err(_) => Ok(None),                 // 类型不匹配，丢弃该字段并返回 None
     }
 }
-
-
-
 
 
 //actix_web response
 
 #[post("/5/manifest")]
-pub async fn handle_manifest(body: String) -> impl Responder {
+pub async fn handle_manifest(body: String, req: HttpRequest) -> impl Responder {
     // Parse the incoming body as a TOML document
-    info!("------> Received original Cargo.toml manifest: \n{}", body);
-    match toml::from_str::<CargoManifest>(&body) {
-        Ok(manifest) => {
-            info!("Match Cargo.toml manifest: \n{:?}", manifest);
+    info!("------> Received original manifest: \n{}", body);
+    info!("------> Req is : \n{:#?}", req);
 
 
 
-            let body_out_string = data_processing(manifest); 
+    // initialization
+    //let mut status_code_output = MyHttpResponseStatus::OkStatus(actix_web::http::StatusCode::OK);
+    let mut body_out_string: String = "".to_string();
 
-            info!(
-                "decoded info to be sent to  body_output to string: \n{:?}",
-                body_out_string
-            );
-
+    let mut result_output = HttpResponse::Ok().body("initialization".to_string());
 
 
-            if body_out_string.is_empty() {
-                info!("No valid orders");
-                HttpResponse::NoContent().finish()
-            } else {
-                HttpResponse::Ok().body(body_out_string) // Return parsed manifest as
+
+    // parser content_type: 
+    // toml
+    // html
+    // ymal
+    // json
+    let content_type = req
+    .headers()
+    .get("content-type")
+    .and_then(|v| v.to_str().ok())
+    .unwrap_or("");
+
+
+    match content_type {
+        "application/toml" => {
+            info!("Matched application/toml");
+            parser_toml(&body)
+        },
+
+        "text/html" => {
+            info!("Matched text/html, response is UnsupportedMediaType!");
+
+            body_out_string = "".to_string();
+            result_output = HttpResponse::UnsupportedMediaType().body(body_out_string);
+            result_output
+        },
+
+        "application/yaml" => {
+            info!("Matched application/ymal");
+
+            let manifest_yaml_result: Result<Manifest, serde_yaml::Error> = serde_yaml::from_str::<Manifest>(&body);
+            match manifest_yaml_result{
+                Ok(cargo_manifest_yaml) =>{
+                    info!("cargo_manifest is: \n{:#?}", cargo_manifest_yaml);
+
+                    let serialized_cargo_manifest = toml::to_string(&cargo_manifest_yaml).unwrap();
+
+                    result_output = parser_toml(&serialized_cargo_manifest);
+
+                },
+                Err(error_info) => {
+                    error!("error_info is: \n{}", error_info);
+                    body_out_string = "Invalid manifest".to_string();
+                    result_output = HttpResponse::BadRequest().body(body_out_string);
+
+                }
+
+
             }
-        }
-        Err(err) => {
-            error!("erro with toml input:  \n {}", err);
-            //eprintln!("Failed to parse TOML: {}", err);
-            //HttpResponse::NoContent().body(format!("Invalid TOML: {}", err))
+            // output
+            result_output
 
-            HttpResponse::NoContent().finish()
-        }
-    }
+        },
+
+        "application/json" => {
+            info!("Matched application/json");
+
+            let manifest_yaml_result: Result<Manifest, serde_json::Error> = serde_json::from_str::<Manifest>(&body);
+            match manifest_yaml_result{
+                Ok(cargo_manifest_yaml) =>{
+                    info!("cargo_manifest is: \n{:#?}", cargo_manifest_yaml);
+
+                    let serialized_cargo_manifest = toml::to_string(&cargo_manifest_yaml).unwrap();
+
+                    result_output = parser_toml(&serialized_cargo_manifest);
+
+                },
+                Err(error_info) => {
+                    error!("error_info is: \n{}", error_info);
+                    body_out_string = "Invalid manifest".to_string();
+                    result_output = HttpResponse::BadRequest().body(body_out_string);
+
+                }
+
+
+            }
+            // output
+            result_output
+
+        },
+
+        _ => {
+            error!("Matched something else!");
+            parser_toml(&body)
+        },
+
+    } // match content_type {
+
+
+
 }
 
 
 
 
+fn parser_toml(body: &str) -> HttpResponse{
 
 
-//processing the CargoManifest Stuct into String
-fn data_processing(manifest:CargoManifest) -> String {
+    // initialization
+    //let mut status_code_output = MyHttpResponseStatus::OkStatus(actix_web::http::StatusCode::OK);
+    let mut body_out_string: String = "".to_string();
 
-    
-    //use indexmap to store the CargoManifest data, as Hashmap data order is arbitrary 
-    //and BTreemap data is ordered from small to big 
-    let mut indexmap_init: IndexMap<Option<String>, Option<u32>> = IndexMap::new();
-
-    //step 0#
-    // put raw Order information into IndexMap
-    for one_order in &manifest.package.metadata.orders {
-        info!(
-            "here {:?}:{:?}\n",
-            one_order.item.clone(),
-            one_order.quantity.clone()
-        );
-        indexmap_init.insert(one_order.item.clone(), one_order.quantity.clone());
-
-    }
-
-
-    info!(
-        "decoded info to be sent to  hash_output before processing: \n{:?}",
-        indexmap_init
-    );
-
-
-    // Step 1#
-    //  filter out "None" value datas
-    indexmap_init.retain(|_, value| value.is_some());
-
-
-    // Step 2#
-    //decode Option<T> --> T
-    //BTreeMap<Option<String>, Option<u32>> -->  BTreeMap<String, u32>
-
-    let indexmap_string_u32: IndexMap<String, u32> = indexmap_init
-        .into_iter()
-        .filter_map(|(key2, value2)| {
-            if let (Some(k), Some(v)) = (key2, value2) {
-                Some((k, v))
-            } else {
-                None
-            }
-        })
-        .collect();
-
-
-    info!(
-        "decoded info to be sent to  indexmap_string_u32: \n{:?}",
-        indexmap_string_u32
-    );
-
-
-    //Step 3#
-    // indexmap<String, u32>  --> Vec<String>
+    let mut result_output = HttpResponse::Ok().body("initialization".to_string());
 
     let mut body_out_vec_string: Vec<String> = Vec::new();
-    for (key3, value3) in indexmap_string_u32 {
-        body_out_vec_string.push(format!("{}: {}", key3, value3));
+        
+    
+    // let manifest = Manifest::from_str(&body);
+    match Manifest::from_str(&body) {
+        Ok(manifest) => {
+            info!("original manifest is:  \n{:#?}", manifest);
+
+            //let manifest_value: toml::Value = toml::de::from_str(toml_str).unwrap();
+
+            if let Some(package_value) = manifest.package {
+                info!("manifest package is \n{:?}", package_value);
+
+                // judge if the "kewords" is "Christmas 2024"
+                //
+                if let Some(keywords_value_local) = package_value.keywords {
+                    info!("keywords_value_out is: {:?}\n", keywords_value_local);
+
+                    if let Some(keywords_vec) = keywords_value_local.as_local() {
+                        info!("keywords_vec is: {:?}\n", keywords_vec);
+
+                        for keyword in keywords_vec {
+                            info!("keyword is: {:?}\n", keyword);
+                            if keyword == "Christmas 2024" {
+                                info!("keyword is correct: {}\n", keyword);
+
+                                // ------------------
+                                // judge if there is any "metadata table"?
+                                if let Some(metadata_table) = package_value.metadata.clone() {
+                                    info!("metadata table is \n{:?}", metadata_table);
+
+                                    // judge if there is any "orders" in metadata table?
+                                    if let Some(Value::Array(orders)) = metadata_table.get("orders")
+                                    {
+                                        for order in orders {
+                                            if let Value::Table(order_table) = order {
+                                                let item = order_table
+                                                    .get("item")
+                                                    .and_then(|v| v.as_str())
+                                                    .unwrap_or("unknown");
+                                                let quantity = order_table
+                                                    .get("quantity")
+                                                    .and_then(|v| v.as_integer())
+                                                    .unwrap_or(0);
+
+                                                println!(
+                                                    "Item: {}, Quantity: {}\n",
+                                                    item, quantity
+                                                );
+
+
+                                                if quantity == 0 {
+                                                    info!("{}'s quantity is 0!!!!!", item);
+                                                } else {
+                                                    body_out_vec_string
+                                                        .push(format!("{}: {}", item, quantity));
+                                                }
+                                            } else {
+                                                // if let Value::Table(order_table)= order {
+                                                info!("no order in orders!");
+                                            }
+                                        } //for order in orders {
+
+                                        let body_out_string: String =
+                                            body_out_vec_string.join("\n");
+                                        info!("body out string is:\n{}", body_out_string);
+
+                                        //let body_out_string: String = body_out_vec_string.iter().map(|s| *s).collect();
+
+                                        if body_out_string == "" {
+                                            result_output =
+                                                HttpResponse::NoContent().body(body_out_string);
+                                        } else {
+                                            result_output =
+                                                HttpResponse::Ok().body(body_out_string);
+                                        }
+                                    } else {
+                                        //if let Some(Value::Array(orders) ) = metadata_table.get("orders") {
+                                        info!("no orders in metadata!");
+                                        body_out_string = "".to_string();
+                                        result_output =
+                                            HttpResponse::NoContent().body(body_out_string);
+                                    }
+                                } else {
+                                    // if let Some(metadata_table) = package.metadata{
+                                    info!("metadata is None!");
+                                    body_out_string = "".to_string();
+                                    result_output = HttpResponse::NoContent().body(body_out_string);
+                                }
+                            } else {
+                                info!("keyword is not correct: {}\n", keyword);
+                                body_out_string = "Magic keyword not provided".to_string();
+                                result_output = HttpResponse::BadRequest().body(body_out_string);
+                            }
+                        }
+                    }
+                } else {  // if let Some(keywords_value_local) = package_value.keywords {
+                    warn!("keywords field is missing! Magic keyword not provided!");
+                    body_out_string = "Magic keyword not provided".to_string();
+                    result_output = HttpResponse::BadRequest().body(body_out_string);
+
+
+                }
+            }
+        }
+        Err(error_info) => {
+            error!("error loading manifest in toml: {}", error_info);
+
+            body_out_string = "Invalid manifest".to_string();
+            result_output = HttpResponse::BadRequest().body(body_out_string);
+
+
+        }
     }
 
-    // Step 4#
-    // Vec<String>  --> String
-    body_out_vec_string.join("\n")
-
+    // parser_toml return
+    result_output
 
 
 }
