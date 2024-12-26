@@ -734,3 +734,109 @@ package:
 
 
 
+/// 9.1.1
+
+2024-12-24T20:32:47.441+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Req is : 
+2024-12-24T20:32:47.441+08:00 [app] 
+2024-12-24T20:32:47.441+08:00 [app] HttpRequest HTTP/1.1 POST:/9/milk
+2024-12-24T20:32:47.441+08:00 [app]   headers:
+2024-12-24T20:32:47.441+08:00 [app]     "accept": "*/*"
+2024-12-24T20:32:47.441+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T20:32:47.441+08:00 [app]     
+2024-12-24T20:32:47.441+08:00 [app]  INFO shuttlings_cch24::day_nine: content_type is: ""    
+
+
+/// 9.2.1
+
+
+2024-12-24T20:32:52.444+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Received original body: 
+2024-12-24T20:32:52.444+08:00 [app] {"liters":2}    
+2024-12-24T20:32:52.444+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Req is : 
+2024-12-24T20:32:52.444+08:00 [app] 
+2024-12-24T20:32:52.444+08:00 [app] HttpRequest HTTP/1.1 POST:/9/milk
+2024-12-24T20:32:52.444+08:00 [app]   headers:
+2024-12-24T20:32:52.444+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T20:32:52.444+08:00 [app]     "accept": "*/*"
+2024-12-24T20:32:52.444+08:00 [app]     "content-type": "application/json"
+2024-12-24T20:32:52.444+08:00 [app]     "content-length": "12"
+2024-12-24T20:32:52.444+08:00 [app]     
+2024-12-24T20:32:52.444+08:00 [app]  INFO shuttlings_cch24::day_nine: content_type is: "application/json" 
+
+
+/// 9.2.2
+
+
+2024-12-24T20:32:52.445+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Received original body: 
+2024-12-24T20:32:52.445+08:00 [app] {"gallons":-2.000000000000001}    
+2024-12-24T20:32:52.445+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Req is : 
+2024-12-24T20:32:52.445+08:00 [app] 
+2024-12-24T20:32:52.445+08:00 [app] HttpRequest HTTP/1.1 POST:/9/milk
+2024-12-24T20:32:52.445+08:00 [app]   headers:
+2024-12-24T20:32:52.445+08:00 [app]     "content-type": "application/json"
+2024-12-24T20:32:52.445+08:00 [app]     "content-length": "30"
+2024-12-24T20:32:52.445+08:00 [app]     "accept": "*/*"
+2024-12-24T20:32:52.445+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T20:32:52.445+08:00 [app]     
+2024-12-24T20:32:52.445+08:00 [app]  INFO shuttlings_cch24::day_nine: content_type is: "application/json"   
+
+
+/// 9.2.3
+
+2024-12-24T20:32:52.446+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Received original body: 
+2024-12-24T20:32:52.446+08:00 [app]     
+2024-12-24T20:32:52.446+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Req is : 
+2024-12-24T20:32:52.446+08:00 [app] 
+2024-12-24T20:32:52.446+08:00 [app] HttpRequest HTTP/1.1 POST:/9/milk
+2024-12-24T20:32:52.446+08:00 [app]   headers:
+2024-12-24T20:32:52.446+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T20:32:52.446+08:00 [app]     "accept": "*/*"
+2024-12-24T20:32:52.446+08:00 [app]     
+2024-12-24T20:32:52.446+08:00 [app]  INFO shuttlings_cch24::day_nine: content_type is: ""    
+2024-12-24T20:32:52.446+08:00 [app]  INFO shuttlings_cch24::day_nine: post request received for Milk! 
+
+
+/// 9.2.4
+
+2024-12-24T20:32:52.448+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Received original body: 
+2024-12-24T20:32:52.448+08:00 [app] {}    
+2024-12-24T20:32:52.448+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Req is : 
+2024-12-24T20:32:52.448+08:00 [app] 
+2024-12-24T20:32:52.448+08:00 [app] HttpRequest HTTP/1.1 POST:/9/milk
+2024-12-24T20:32:52.448+08:00 [app]   headers:
+2024-12-24T20:32:52.448+08:00 [app]     "content-type": "application/json"
+2024-12-24T20:32:52.448+08:00 [app]     "content-length": "2"
+2024-12-24T20:32:52.448+08:00 [app]     "accept": "*/*"
+2024-12-24T20:32:52.448+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T20:32:52.448+08:00 [app]     
+2024-12-24T20:32:52.448+08:00 [app]  INFO shuttlings_cch24::day_nine: content_type is: "application/json"    
+
+
+
+/// 9.2.5
+
+2024-12-24T20:32:52.449+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Received original body: 
+2024-12-24T20:32:52.449+08:00 [app] {"gallons":1337,"liters":0}    
+2024-12-24T20:32:52.449+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Req is : 
+2024-12-24T20:32:52.449+08:00 [app] 
+2024-12-24T20:32:52.449+08:00 [app] HttpRequest HTTP/1.1 POST:/9/milk
+2024-12-24T20:32:52.449+08:00 [app]   headers:
+2024-12-24T20:32:52.449+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T20:32:52.449+08:00 [app]     "accept": "*/*"
+2024-12-24T20:32:52.449+08:00 [app]     "content-type": "application/json"
+2024-12-24T20:32:52.449+08:00 [app]     "content-length": "27"
+2024-12-24T20:32:52.449+08:00 [app]     
+2024-12-24T20:32:52.449+08:00 [app]  INFO shuttlings_cch24::day_nine: content_type is: "application/json"   
+
+
+
+/// 9.2.6
+
+2024-12-24T20:32:52.450+08:00 [app]  INFO shuttlings_cch24::day_nine: ------> Req is : 
+2024-12-24T20:32:52.450+08:00 [app] 
+2024-12-24T20:32:52.450+08:00 [app] HttpRequest HTTP/1.1 POST:/9/milk
+2024-12-24T20:32:52.450+08:00 [app]   headers:
+2024-12-24T20:32:52.450+08:00 [app]     "accept": "*/*"
+2024-12-24T20:32:52.450+08:00 [app]     "host": "127.0.0.1:8000"
+2024-12-24T20:32:52.450+08:00 [app]     
+2024-12-24T20:32:52.450+08:00 [app]  INFO shuttlings_cch24::day_nine: content_type is: ""    
+

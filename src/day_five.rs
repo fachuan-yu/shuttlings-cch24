@@ -1,19 +1,14 @@
-use std::{str::FromStr};
+use std::str::FromStr;
 
 use actix_web::{
     post, HttpResponse, Responder, HttpRequest,
 };
-
-use indexmap::IndexMap;
 
 use cargo_manifest::Manifest;
 use toml::Value;
 
 use serde_json;
 use serde_yaml;
-
-use serde::de::Deserializer;
-use serde::{Deserialize, Serialize};
 
 use log::{ error, info, warn};
 
@@ -94,12 +89,12 @@ pub async fn handle_manifest(body: String, req: HttpRequest) -> impl Responder {
         "application/json" => {
             info!("Matched application/json");
 
-            let manifest_yaml_result: Result<Manifest, serde_json::Error> = serde_json::from_str::<Manifest>(&body);
-            match manifest_yaml_result{
-                Ok(cargo_manifest_yaml) =>{
-                    info!("cargo_manifest is: \n{:#?}", cargo_manifest_yaml);
+            let manifest_json_result: Result<Manifest, serde_json::Error> = serde_json::from_str::<Manifest>(&body);
+            match manifest_json_result{
+                Ok(cargo_manifest_json) =>{
+                    info!("cargo_manifest_json is: \n{:#?}", cargo_manifest_json);
 
-                    let serialized_cargo_manifest = toml::to_string(&cargo_manifest_yaml).unwrap();
+                    let serialized_cargo_manifest = toml::to_string(&cargo_manifest_json).unwrap();
 
                     result_output = parser_toml(&serialized_cargo_manifest);
 
