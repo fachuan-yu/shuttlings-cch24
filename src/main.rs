@@ -1,5 +1,6 @@
 use actix_web::{web, middleware::Logger,  web::ServiceConfig, App, };
 
+
 use shuttle_actix_web::ShuttleActixWeb;
 
 
@@ -20,6 +21,19 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 use std::time::Duration;
 pub use crate::day_nine::handle_milk_refill;
+
+
+mod day_twelve;
+pub use crate::day_twelve::handle_board;
+pub use crate::day_twelve::board_reset;
+pub use crate::day_twelve::place_cookie_milk;
+pub use crate::day_twelve::random_board;
+use day_twelve:: Board;
+
+
+mod day_sixteen;
+pub use crate::day_sixteen::wrap_gift;
+pub use crate::day_sixteen::unwrap_gift;
 
 
 
@@ -45,6 +59,22 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
     let bucket = Arc::new(Mutex::new(bucket));
 
 
+    // day12
+
+
+    let board_grid: Arc<Mutex<Board> > = Arc::new(Mutex::new ( Board::new()));
+    //let app_state: Arc<Mutex<AppState> > = Arc::new(Mutex::new ( AppState::new(2024)));
+
+    // let mut board_grid: [ [char; 6] ; 5] = [
+    // [ '⬜', '⬛', '⬛', '⬛', '⬛', '⬜' ],
+    // [ '⬜', '⬛', '⬛', '⬛', '⬛', '⬜' ],
+    // [ '⬜', '⬛', '⬛', '⬛', '⬛', '⬜' ],
+    // [ '⬜', '⬛', '⬛', '⬛', '⬛', '⬜' ],
+    // [ '⬜', '⬜', '⬜', '⬜', '⬜', '⬜' ],
+    // ];
+
+
+
     let config = move |cfg: &mut ServiceConfig| {
         cfg.service(crate::day_one::hello_bird)
             .service(crate::day_one::seek)
@@ -55,7 +85,16 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
             .service(crate::day_five::handle_manifest)
             .app_data(web::Data::new(bucket.clone()))
             .service(crate::day_nine::handle_milk_request)
-            .service(crate::day_nine::handle_milk_refill);
+            .app_data(web::Data::new(board_grid.clone()))
+            .service(crate::day_twelve::handle_board)
+            .service(crate::day_twelve::board_reset)
+            .service(crate::day_twelve::place_cookie_milk)
+            .service(crate::day_twelve::random_board)
+            .app_data(web::Data::new(board_grid.clone()))
+            //.app_data(web::Data::new(app_state.clone()))
+            .service(crate::day_sixteen::wrap_gift)
+            .service(crate::day_sixteen::unwrap_gift)
+            ;
 
     };
 
