@@ -94,6 +94,7 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
             //.app_data(web::Data::new(app_state.clone()))
             .service(crate::day_sixteen::wrap_gift)
             .service(crate::day_sixteen::unwrap_gift)
+            .service(crate::day_sixteen::decode_jwt)
             ;
 
     };
