@@ -44,6 +44,7 @@ struct FromTo {
     to: Ipv4Addr,
 }
 
+
 #[get("/2/key")]
 pub async fn key(addr: web::Query<FromTo>) -> String {
     let from_bytes = addr.from.octets();

@@ -1,51 +1,54 @@
 use actix_web::{web, middleware::Logger,  web::ServiceConfig, App, };
-
+use actix_files::Files;
 
 use shuttle_actix_web::ShuttleActixWeb;
 
 
 mod day_one;
-pub use crate::day_one::{hello_bird, seek};
 
 mod day_two;
-pub use crate::day_two::{dest, key, v6_dest, v6_key};
 
 
 mod day_five;
-pub use crate::day_five::handle_manifest;
+
 
 mod day_nine;
-pub use crate::day_nine::handle_milk_request;
 use leaky_bucket::RateLimiter;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use std::time::Duration;
-pub use crate::day_nine::handle_milk_refill;
+
 
 
 mod day_twelve;
-pub use crate::day_twelve::handle_board;
-pub use crate::day_twelve::board_reset;
-pub use crate::day_twelve::place_cookie_milk;
-pub use crate::day_twelve::random_board;
-use day_twelve:: Board;
+
+pub use day_twelve:: Board;
 
 
 mod day_sixteen;
-pub use crate::day_sixteen::wrap_gift;
-pub use crate::day_sixteen::unwrap_gift;
 
 
+mod day_nineteen;
+use deadpool_postgres::{Manager, Pool, PoolError};
+
+
+
+use sqlx::PgPool;
+use crate::day_nineteen::{reset, get_quote, delete_quote, update_quote, add_quote};
+
+mod day_twentythree;
+pub use day_twentythree::OrnamentState;
 
 
 #[shuttle_runtime::main]
-async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clone + 'static> {
+//#[shuttle_service::main]
+async fn main(#[shuttle_shared_db::Postgres] pool:PgPool) -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clone + 'static> {
     //env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
     env_logger::Env::new().default_filter_or("info");
 
-    let _app = App::new()
-        //.wrap(Logger::new("%a %{User-Agent}i"));
-        .wrap(Logger::default());
+    // let _app = App::new()
+    //     //.wrap(Logger::new("%a %{User-Agent}i"));
+    //     .wrap(Logger::default());
 
     // day9
     let bucket = RateLimiter::builder()
@@ -73,6 +76,20 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
     // [ '⬜', '⬜', '⬜', '⬜', '⬜', '⬜' ],
     // ];
 
+ 
+    sqlx::migrate!()
+        .run(&pool)
+        .await
+        .expect("Failed to run migrations");
+
+
+    //let pool = PgPool::connect(database_url).await?;
+
+    let pool_data = web::Data::new(pool);
+
+
+    let ornament_state = Arc::new(Mutex::new("off".to_string()));
+
 
 
     let config = move |cfg: &mut ServiceConfig| {
@@ -85,6 +102,7 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
             .service(crate::day_five::handle_manifest)
             .app_data(web::Data::new(bucket.clone()))
             .service(crate::day_nine::handle_milk_request)
+            .service(crate::day_nine::handle_milk_refill)
             .app_data(web::Data::new(board_grid.clone()))
             .service(crate::day_twelve::handle_board)
             .service(crate::day_twelve::board_reset)
@@ -95,6 +113,19 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
             .service(crate::day_sixteen::wrap_gift)
             .service(crate::day_sixteen::unwrap_gift)
             .service(crate::day_sixteen::decode_jwt)
+            .app_data(pool_data.clone())
+            .service(crate::day_nineteen::reset)
+            .service(crate::day_nineteen::get_quote)
+            .service(crate::day_nineteen::delete_quote)
+            .service(crate::day_nineteen::update_quote)
+            .service(crate::day_nineteen::add_quote)
+            .service(Files::new("/assets", "./assets"))
+            .service(crate::day_twentythree::light_star)
+            .service(crate::day_twentythree::present_color)
+            .app_data(web::Data::new(OrnamentState {
+                state: ornament_state.clone(),
+            }))
+            .service(crate::day_twentythree::ornament_color)
             ;
 
     };
